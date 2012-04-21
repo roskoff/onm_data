@@ -65,13 +65,15 @@ function getNextMatchData(){
 
 }
 
-// Actualizar datos cada 5 minutos
-setInterval(getNextMatchData, 300000);
+// Actualizar datos cada 2 minutos
+setInterval(getNextMatchData, 120000);
 
 http.createServer(function (req, res) {
 
-    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.writeHead(200, {'Access-Control-Allow-Origin': '*'});
+    res.writeHead(200, {'Access-Control-Allow-Headers': 'X-KEY'});
     res.end(JSON.stringify(MY_APP["json_data"]));
 
-}).listen(1337, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
+}).listen(process.env['app_port'] || 3000);
+console.log('Server running @nodester:' + (process.env['app_port'] || 3000);
